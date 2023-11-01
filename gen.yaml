@@ -23,6 +23,11 @@ features:
     globalServerURLs: 2.82.0
     inputOutputModels: 2.81.1
     serverIDs: 2.81.1
+go:
+  version: 0.0.1
+  clientServerStatusCodesAsErrors: true
+  maxMethodParams: 0
+  packageName: github.com/speakeasy-sdks/test-ryan-3
 python:
   version: 1.26.0
   author: Speakeasy
