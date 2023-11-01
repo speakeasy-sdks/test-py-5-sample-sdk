@@ -1,4 +1,5 @@
-# orders
+# Orders
+(*orders*)
 
 ## Overview
 
@@ -6,46 +7,49 @@ The orders endpoints.
 
 ### Available Operations
 
-* [create_order](#create_order) - Create an order.
+* [createOrder](#createorder) - Create an order.
 
-## create_order
+## createOrder
 
 Create an order for a drink.
 
 ### Example Usage
 
-```python
-import speakeasybar
-from speakeasybar.models import callbacks, operations, shared
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+import { OrderType } from "The-Speakeasy-Bar/dist/sdk/models/shared";
 
-s = speakeasybar.Speakeasybar(
-    security=shared.Security(
-        api_key="",
-    ),
-)
+(async() => {
+  const sdk = new TheSpeakeasyBar({
+    apiKey: "",
+  });
+
+  const res = await sdk.orders.createOrder({
+    requestBody: [
+      {
+        productCode: "APM-1F2D3",
+        quantity: 26535,
+        type: OrderType.Drink,
+      },
+    ],
+  });
 
 
-res = s.orders.create_order(request_body=[
-    shared.OrderInput(
-        product_code='APM-1F2D3',
-        quantity=272656,
-        type=shared.OrderType.DRINK,
-    ),
-], callback_url='molestiae')
-
-if res.order is not None:
-    # handle response
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `request_body`                                               | list[[shared.OrderInput](../../models/shared/orderinput.md)] | :heavy_check_mark:                                           | N/A                                                          |
-| `callback_url`                                               | *Optional[str]*                                              | :heavy_minus_sign:                                           | The url to call when the order is updated.                   |
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `request`                                                                      | [operations.CreateOrderRequest](../../models/operations/createorderrequest.md) | :heavy_check_mark:                                                             | The request object to use for the request.                                     |
+| `config`                                                                       | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                   | :heavy_minus_sign:                                                             | Available config options for making requests.                                  |
 
 
 ### Response
 
-**[operations.CreateOrderResponse](../../models/operations/createorderresponse.md)**
+**Promise<[operations.CreateOrderResponse](../../models/operations/createorderresponse.md)>**
 

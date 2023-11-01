@@ -5,11 +5,11 @@ The type of drink.
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `COCKTAIL`      | cocktail        |
-| `NON_ALCOHOLIC` | non-alcoholic   |
-| `BEER`          | beer            |
-| `WINE`          | wine            |
-| `SPIRIT`        | spirit          |
-| `OTHER`         | other           |
+| Name           | Value          |
+| -------------- | -------------- |
+| `Cocktail`     | cocktail       |
+| `NonAlcoholic` | non-alcoholic  |
+| `Beer`         | beer           |
+| `Wine`         | wine           |
+| `Spirit`       | spirit         |
+| `Other`        | other          |

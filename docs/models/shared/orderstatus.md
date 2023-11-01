@@ -7,6 +7,6 @@ The status of the order.
 
 | Name         | Value        |
 | ------------ | ------------ |
-| `PENDING`    | pending      |
-| `PROCESSING` | processing   |
-| `COMPLETE`   | complete     |
+| `Pending`    | pending      |
+| `Processing` | processing   |
+| `Complete`   | complete     |

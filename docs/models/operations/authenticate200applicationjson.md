@@ -7,4 +7,4 @@ The api key to use for authenticated endpoints.
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `token`            | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| `token`            | *string*           | :heavy_minus_sign: | N/A                |

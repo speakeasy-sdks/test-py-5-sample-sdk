@@ -1,54 +1,45 @@
-# config
+# Config
+(*config*)
 
 ### Available Operations
 
-* [subscribe_to_webhooks](#subscribe_to_webhooks) - Subscribe to webhooks.
+* [subscribeToWebhooks](#subscribetowebhooks) - Subscribe to webhooks.
 
-## subscribe_to_webhooks
+## subscribeToWebhooks
 
 Subscribe to webhooks.
 
 ### Example Usage
 
-```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+import { SubscribeToWebhooksRequestBodyWebhook } from "The-Speakeasy-Bar/dist/sdk/models/operations";
 
-s = speakeasybar.Speakeasybar(
-    security=shared.Security(
-        api_key="",
-    ),
-)
+(async() => {
+  const sdk = new TheSpeakeasyBar({
+    apiKey: "",
+  });
 
-req = [
-    operations.SubscribeToWebhooksRequestBody(
-        url='illum',
-        webhook=operations.SubscribeToWebhooksRequestBodyWebhook.STOCK_UPDATE,
-    ),
-    operations.SubscribeToWebhooksRequestBody(
-        url='vel',
-        webhook=operations.SubscribeToWebhooksRequestBodyWebhook.STOCK_UPDATE,
-    ),
-    operations.SubscribeToWebhooksRequestBody(
-        url='error',
-        webhook=operations.SubscribeToWebhooksRequestBodyWebhook.STOCK_UPDATE,
-    ),
-]
+  const res = await sdk.config.subscribeToWebhooks([
+    {},
+  ]);
 
-res = s.config.subscribe_to_webhooks(req)
 
-if res.status_code == 200:
-    # handle response
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
 ```
 
 ### Parameters
 
-| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `request`                                                            | [list[operations.SubscribeToWebhooksRequestBody]](../../models//.md) | :heavy_check_mark:                                                   | The request object to use for the request.                           |
+| Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `request`                                                        | [operations.SubscribeToWebhooksRequestBody[]](../../models//.md) | :heavy_check_mark:                                               | The request object to use for the request.                       |
+| `config`                                                         | [AxiosRequestConfig](https://axios-http.com/docs/req_config)     | :heavy_minus_sign:                                               | Available config options for making requests.                    |
 
 
 ### Response
 
-**[operations.SubscribeToWebhooksResponse](../../models/operations/subscribetowebhooksresponse.md)**
+**Promise<[operations.SubscribeToWebhooksResponse](../../models/operations/subscribetowebhooksresponse.md)>**
 

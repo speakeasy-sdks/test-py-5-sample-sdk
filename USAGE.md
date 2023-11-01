@@ -1,20 +1,21 @@
 <!-- Start SDK Example Usage -->
 
 
-```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+import { DrinkType } from "The-Speakeasy-Bar/dist/sdk/models/shared";
 
-s = speakeasybar.Speakeasybar(
-    security=shared.Security(
-        api_key="",
-    ),
-)
+(async () => {
+    const sdk = new TheSpeakeasyBar({
+        apiKey: "",
+    });
 
+    const res = await sdk.drinks.listDrinks({});
 
-res = s.drinks.list_drinks(drink_type=shared.DrinkType.WINE)
+    if (res.statusCode == 200) {
+        // handle response
+    }
+})();
 
-if res.drinks is not None:
-    # handle response
 ```
 <!-- End SDK Example Usage -->

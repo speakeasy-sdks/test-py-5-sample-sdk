@@ -1,4 +1,5 @@
-# authentication
+# Authentication
+(*authentication*)
 
 ## Overview
 
@@ -14,25 +15,21 @@ Authenticate with the API by providing a username and password.
 
 ### Example Usage
 
-```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
 
-s = speakeasybar.Speakeasybar(
-    security=shared.Security(
-        api_key="",
-    ),
-)
+(async() => {
+  const sdk = new TheSpeakeasyBar({
+    apiKey: "",
+  });
 
-req = operations.AuthenticateRequestBody(
-    password='provident',
-    username='Micheal_Sporer',
-)
+  const res = await sdk.authentication.authenticate({});
 
-res = s.authentication.authenticate(req)
 
-if res.authenticate_200_application_json_object is not None:
-    # handle response
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
 ```
 
 ### Parameters
@@ -40,9 +37,10 @@ if res.authenticate_200_application_json_object is not None:
 | Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              |
 | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | `request`                                                                                | [operations.AuthenticateRequestBody](../../models/operations/authenticaterequestbody.md) | :heavy_check_mark:                                                                       | The request object to use for the request.                                               |
+| `config`                                                                                 | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                             | :heavy_minus_sign:                                                                       | Available config options for making requests.                                            |
 
 
 ### Response
 
-**[operations.AuthenticateResponse](../../models/operations/authenticateresponse.md)**
+**Promise<[operations.AuthenticateResponse](../../models/operations/authenticateresponse.md)>**
 

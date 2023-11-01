@@ -1,4 +1,5 @@
-# drinks
+# Drinks
+(*drinks*)
 
 ## Overview
 
@@ -6,75 +7,80 @@ The drinks endpoints.
 
 ### Available Operations
 
-* [get_drink](#get_drink) - Get a drink.
-* [list_drinks](#list_drinks) - Get a list of drinks.
+* [getDrink](#getdrink) - Get a drink.
+* [listDrinks](#listdrinks) - Get a list of drinks.
 
-## get_drink
+## getDrink
 
 Get a drink by name, if authenticated this will include stock levels and product codes otherwise it will only include public information.
 
 ### Example Usage
 
-```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
 
-s = speakeasybar.Speakeasybar(
-    security=shared.Security(
-        api_key="",
-    ),
-)
+(async() => {
+  const sdk = new TheSpeakeasyBar({
+    apiKey: "",
+  });
+
+  const res = await sdk.drinks.getDrink({
+    name: "string",
+  });
 
 
-res = s.drinks.get_drink(name='deserunt')
-
-if res.drink is not None:
-    # handle response
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
 ```
 
 ### Parameters
 
-| Parameter          | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *str*              | :heavy_check_mark: | N/A                |
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `request`                                                                | [operations.GetDrinkRequest](../../models/operations/getdrinkrequest.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
+| `config`                                                                 | [AxiosRequestConfig](https://axios-http.com/docs/req_config)             | :heavy_minus_sign:                                                       | Available config options for making requests.                            |
 
 
 ### Response
 
-**[operations.GetDrinkResponse](../../models/operations/getdrinkresponse.md)**
+**Promise<[operations.GetDrinkResponse](../../models/operations/getdrinkresponse.md)>**
 
 
-## list_drinks
+## listDrinks
 
 Get a list of drinks, if authenticated this will include stock levels and product codes otherwise it will only include public information.
 
 ### Example Usage
 
-```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+import { DrinkType } from "The-Speakeasy-Bar/dist/sdk/models/shared";
 
-s = speakeasybar.Speakeasybar(
-    security=shared.Security(
-        api_key="",
-    ),
-)
+(async() => {
+  const sdk = new TheSpeakeasyBar({
+    apiKey: "",
+  });
+
+  const res = await sdk.drinks.listDrinks({});
 
 
-res = s.drinks.list_drinks(drink_type=shared.DrinkType.BEER)
-
-if res.drinks is not None:
-    # handle response
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
 ```
 
 ### Parameters
 
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `drink_type`                                                                 | [Optional[shared.DrinkType]](../../models/shared/drinktype.md)               | :heavy_minus_sign:                                                           | The type of drink to filter by. If not provided all drinks will be returned. |
+| `request`                                                                    | [operations.ListDrinksRequest](../../models/operations/listdrinksrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| `config`                                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                 | :heavy_minus_sign:                                                           | Available config options for making requests.                                |
 
 
 ### Response
 
-**[operations.ListDrinksResponse](../../models/operations/listdrinksresponse.md)**
+**Promise<[operations.ListDrinksResponse](../../models/operations/listdrinksresponse.md)>**
 

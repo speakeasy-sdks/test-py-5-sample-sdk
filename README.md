@@ -58,28 +58,37 @@ Once you're finished iterating and happy with the output push only the latest ve
 <!-- Start SDK Installation -->
 ## SDK Installation
 
+### NPM
+
 ```bash
-pip install git+https://github.com/speakeasy-sdks/template-sdk.git
+npm add https://github.com/speakeasy-sdks/test-py-5-sample-sdk
+```
+
+### Yarn
+
+```bash
+yarn add https://github.com/speakeasy-sdks/test-py-5-sample-sdk
 ```
 <!-- End SDK Installation -->
 
 ## SDK Example Usage
 <!-- Start SDK Example Usage -->
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+import { DrinkType } from "The-Speakeasy-Bar/dist/sdk/models/shared";
 
-```python
-import speakeasybar
-from speakeasybar.models import operations, shared
+(async () => {
+    const sdk = new TheSpeakeasyBar({
+        apiKey: "",
+    });
 
-s = speakeasybar.Speakeasybar(
-    security=shared.Security(
-        api_key="",
-    ),
-)
+    const res = await sdk.drinks.listDrinks({});
 
-res = s.drinks.list_drinks(drink_type=shared.DrinkType.WINE)
+    if (res.statusCode == 200) {
+        // handle response
+    }
+})();
 
-if res.drinks is not None:
-    # handle response
 ```
 <!-- End SDK Example Usage -->
 
@@ -93,21 +102,161 @@ if res.drinks is not None:
 
 ### [config](docs/sdks/config/README.md)
 
-* [subscribe_to_webhooks](docs/sdks/config/README.md#subscribe_to_webhooks) - Subscribe to webhooks.
+* [subscribeToWebhooks](docs/sdks/config/README.md#subscribetowebhooks) - Subscribe to webhooks.
 
 ### [drinks](docs/sdks/drinks/README.md)
 
-* [get_drink](docs/sdks/drinks/README.md#get_drink) - Get a drink.
-* [list_drinks](docs/sdks/drinks/README.md#list_drinks) - Get a list of drinks.
+* [getDrink](docs/sdks/drinks/README.md#getdrink) - Get a drink.
+* [listDrinks](docs/sdks/drinks/README.md#listdrinks) - Get a list of drinks.
 
 ### [ingredients](docs/sdks/ingredients/README.md)
 
-* [list_ingredients](docs/sdks/ingredients/README.md#list_ingredients) - Get a list of ingredients.
+* [listIngredients](docs/sdks/ingredients/README.md#listingredients) - Get a list of ingredients.
 
 ### [orders](docs/sdks/orders/README.md)
 
-* [create_order](docs/sdks/orders/README.md#create_order) - Create an order.
+* [createOrder](docs/sdks/orders/README.md#createorder) - Create an order.
 <!-- End SDK Available Operations -->
+
+
+
+<!-- Start Dev Containers -->
+
+
+
+<!-- End Dev Containers -->
+
+
+
+<!-- Start Error Handling -->
+# Error Handling
+
+Handling errors in your SDK should largely match your expectations.  All operations return a response object or throw an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Error type.
+
+
+## Example
+
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+
+(async() => {
+  const sdk = new TheSpeakeasyBar({
+    apiKey: "",
+  });
+
+  
+  let res;
+  try {
+    res = await sdk.authentication.authenticate({});
+  } catch (e) { 
+    } else if (e instanceof APIError) {
+      console.error(e) // handle exception 
+    
+  }
+
+
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
+```
+<!-- End Error Handling -->
+
+
+
+<!-- Start Server Selection -->
+# Server Selection
+
+## Select Server by Name
+
+You can override the default server globally by passing a server name to the `server: string` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
+
+| Name | Server | Variables |
+| ----- | ------ | --------- |
+| `prod` | `https://speakeasy.bar` | None |
+| `staging` | `https://staging.speakeasy.bar` | None |
+| `customer` | `https://{organization}.{environment}.speakeasy.bar` | `environment` (default is `prod`), `organization` (default is `api`) |
+
+
+Some of the server options above contain variables. If you want to set the values of those variables, the following options are provided for doing so:
+ * `environment: ServerEnvironment`
+
+ * `organization: string`
+
+For example:
+
+
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+
+(async () => {
+    const sdk = new TheSpeakeasyBar({
+        apiKey: "",
+        server: "customer",
+    });
+
+    const res = await sdk.authentication.authenticate({});
+
+    if (res.statusCode == 200) {
+        // handle response
+    }
+})();
+
+```
+
+
+## Override Server URL Per-Client
+
+The default server can also be overridden globally by passing a URL to the `serverURL: str` optional parameter when initializing the SDK client instance. For example:
+
+
+```typescript
+import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+
+(async () => {
+    const sdk = new TheSpeakeasyBar({
+        apiKey: "",
+        serverURL: "https://speakeasy.bar",
+    });
+
+    const res = await sdk.authentication.authenticate({});
+
+    if (res.statusCode == 200) {
+        // handle response
+    }
+})();
+
+```
+<!-- End Server Selection -->
+
+
+
+<!-- Start Custom HTTP Client -->
+# Custom HTTP Client
+
+The Typescript SDK makes API calls using the (axios)[https://axios-http.com/docs/intro] HTTP library.  In order to provide a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration, you can initialize the SDK client with a custom `AxiosInstance` object.
+
+
+For example, you could specify a header for every request that your sdk makes as follows:
+
+```typescript
+from The-Speakeasy-Bar import TheSpeakeasyBar;
+import axios;
+
+const httpClient = axios.create({
+    headers: {'x-custom-header': 'someValue'}
+})
+
+
+const sdk = new TheSpeakeasyBar({defaultClient: httpClient});
+```
+
+
+<!-- End Custom HTTP Client -->
+
+<!-- Placeholder for Future Speakeasy SDK Sections -->
+
+
 
 ### Maturity
 

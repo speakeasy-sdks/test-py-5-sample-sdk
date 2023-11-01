@@ -5,5 +5,5 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `password`         | *Optional[str]*    | :heavy_minus_sign: | N/A                |
-| `username`         | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| `password`         | *string*           | :heavy_minus_sign: | N/A                |
+| `username`         | *string*           | :heavy_minus_sign: | N/A                |

@@ -7,5 +7,5 @@ The type of order.
 
 | Name         | Value        |
 | ------------ | ------------ |
-| `DRINK`      | drink        |
-| `INGREDIENT` | ingredient   |
+| `Drink`      | drink        |
+| `Ingredient` | ingredient   |
