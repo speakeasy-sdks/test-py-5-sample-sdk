@@ -1,5 +1,5 @@
 # Orders
-(*orders*)
+(*.Orders*)
 
 ## Overview
 
@@ -7,49 +7,60 @@ The orders endpoints.
 
 ### Available Operations
 
-* [createOrder](#createorder) - Create an order.
+* [CreateOrder](#createorder) - Create an order.
 
-## createOrder
+## CreateOrder
 
 Create an order for a drink.
 
 ### Example Usage
 
-```typescript
-import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
-import { OrderType } from "The-Speakeasy-Bar/dist/sdk/models/shared";
+```go
+package main
 
-(async() => {
-  const sdk = new TheSpeakeasyBar({
-    apiKey: "",
-  });
+import(
+	"context"
+	"log"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"github.com/speakeasy-sdks/test-ryan-3/models/callbacks"
+)
 
-  const res = await sdk.orders.createOrder({
-    requestBody: [
-      {
-        productCode: "APM-1F2D3",
-        quantity: 26535,
-        type: OrderType.Drink,
-      },
-    ],
-  });
+func main() {
+    s := testryan3.New(
+        testryan3.WithSecurity(""),
+    )
 
+    ctx := context.Background()
+    res, err := s.Orders.CreateOrder(ctx, operations.CreateOrderRequest{
+        RequestBody: []components.OrderInput{
+            components.OrderInput{
+                ProductCode: "APM-1F2D3",
+                Quantity: 26535,
+                Type: components.OrderTypeDrink,
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+    if res.Order != nil {
+        // handle response
+    }
+}
 ```
 
 ### Parameters
 
 | Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
 | `request`                                                                      | [operations.CreateOrderRequest](../../models/operations/createorderrequest.md) | :heavy_check_mark:                                                             | The request object to use for the request.                                     |
-| `config`                                                                       | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                   | :heavy_minus_sign:                                                             | Available config options for making requests.                                  |
 
 
 ### Response
 
-**Promise<[operations.CreateOrderResponse](../../models/operations/createorderresponse.md)>**
+**[*operations.CreateOrderResponse](../../models/operations/createorderresponse.md), error**
 

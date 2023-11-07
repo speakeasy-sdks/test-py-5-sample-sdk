@@ -5,7 +5,7 @@ The type of order.
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `Drink`      | drink        |
-| `Ingredient` | ingredient   |
+| Name                  | Value                 |
+| --------------------- | --------------------- |
+| `OrderTypeDrink`      | drink                 |
+| `OrderTypeIngredient` | ingredient            |

@@ -1,45 +1,55 @@
 # Config
-(*config*)
+(*.Config*)
 
 ### Available Operations
 
-* [subscribeToWebhooks](#subscribetowebhooks) - Subscribe to webhooks.
+* [SubscribeToWebhooks](#subscribetowebhooks) - Subscribe to webhooks.
 
-## subscribeToWebhooks
+## SubscribeToWebhooks
 
 Subscribe to webhooks.
 
 ### Example Usage
 
-```typescript
-import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
-import { SubscribeToWebhooksRequestBodyWebhook } from "The-Speakeasy-Bar/dist/sdk/models/operations";
+```go
+package main
 
-(async() => {
-  const sdk = new TheSpeakeasyBar({
-    apiKey: "",
-  });
+import(
+	"context"
+	"log"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+)
 
-  const res = await sdk.config.subscribeToWebhooks([
-    {},
-  ]);
+func main() {
+    s := testryan3.New(
+        testryan3.WithSecurity(""),
+    )
 
+    ctx := context.Background()
+    res, err := s.Config.SubscribeToWebhooks(ctx, []operations.RequestBody{
+        operations.RequestBody{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+    if res.StatusCode == http.StatusOK {
+        // handle response
+    }
+}
 ```
 
 ### Parameters
 
-| Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `request`                                                        | [operations.SubscribeToWebhooksRequestBody[]](../../models//.md) | :heavy_check_mark:                                               | The request object to use for the request.                       |
-| `config`                                                         | [AxiosRequestConfig](https://axios-http.com/docs/req_config)     | :heavy_minus_sign:                                               | Available config options for making requests.                    |
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `ctx`                                                 | [context.Context](https://pkg.go.dev/context#Context) | :heavy_check_mark:                                    | The context to use for the request.                   |
+| `request`                                             | [[]operations.RequestBody](../../models//.md)         | :heavy_check_mark:                                    | The request object to use for the request.            |
 
 
 ### Response
 
-**Promise<[operations.SubscribeToWebhooksResponse](../../models/operations/subscribetowebhooksresponse.md)>**
+**[*operations.SubscribeToWebhooksResponse](../../models/operations/subscribetowebhooksresponse.md), error**
 

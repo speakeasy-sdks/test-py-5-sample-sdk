@@ -1,5 +1,5 @@
 # Drinks
-(*drinks*)
+(*.Drinks*)
 
 ## Overview
 
@@ -7,80 +7,101 @@ The drinks endpoints.
 
 ### Available Operations
 
-* [getDrink](#getdrink) - Get a drink.
-* [listDrinks](#listdrinks) - Get a list of drinks.
+* [GetDrink](#getdrink) - Get a drink.
+* [ListDrinks](#listdrinks) - Get a list of drinks.
 
-## getDrink
+## GetDrink
 
 Get a drink by name, if authenticated this will include stock levels and product codes otherwise it will only include public information.
 
 ### Example Usage
 
-```typescript
-import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+```go
+package main
 
-(async() => {
-  const sdk = new TheSpeakeasyBar({
-    apiKey: "",
-  });
+import(
+	"context"
+	"log"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+)
 
-  const res = await sdk.drinks.getDrink({
-    name: "string",
-  });
+func main() {
+    s := testryan3.New(
+        testryan3.WithSecurity(""),
+    )
 
+    ctx := context.Background()
+    res, err := s.Drinks.GetDrink(ctx, operations.GetDrinkRequest{
+        Name: "string",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+    if res.Drink != nil {
+        // handle response
+    }
+}
 ```
 
 ### Parameters
 
 | Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
 | `request`                                                                | [operations.GetDrinkRequest](../../models/operations/getdrinkrequest.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-| `config`                                                                 | [AxiosRequestConfig](https://axios-http.com/docs/req_config)             | :heavy_minus_sign:                                                       | Available config options for making requests.                            |
 
 
 ### Response
 
-**Promise<[operations.GetDrinkResponse](../../models/operations/getdrinkresponse.md)>**
+**[*operations.GetDrinkResponse](../../models/operations/getdrinkresponse.md), error**
 
 
-## listDrinks
+## ListDrinks
 
 Get a list of drinks, if authenticated this will include stock levels and product codes otherwise it will only include public information.
 
 ### Example Usage
 
-```typescript
-import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
-import { DrinkType } from "The-Speakeasy-Bar/dist/sdk/models/shared";
+```go
+package main
 
-(async() => {
-  const sdk = new TheSpeakeasyBar({
-    apiKey: "",
-  });
+import(
+	"context"
+	"log"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+)
 
-  const res = await sdk.drinks.listDrinks({});
+func main() {
+    s := testryan3.New(
+        testryan3.WithSecurity(""),
+    )
 
+    ctx := context.Background()
+    res, err := s.Drinks.ListDrinks(ctx, operations.ListDrinksRequest{})
+    if err != nil {
+        log.Fatal(err)
+    }
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+    if res.Classes != nil {
+        // handle response
+    }
+}
 ```
 
 ### Parameters
 
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
 | `request`                                                                    | [operations.ListDrinksRequest](../../models/operations/listdrinksrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
-| `config`                                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                 | :heavy_minus_sign:                                                           | Available config options for making requests.                                |
 
 
 ### Response
 
-**Promise<[operations.ListDrinksResponse](../../models/operations/listdrinksresponse.md)>**
+**[*operations.ListDrinksResponse](../../models/operations/listdrinksresponse.md), error**
 

@@ -5,8 +5,8 @@ The type of ingredient.
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `Fresh`    | fresh      |
-| `LongLife` | long-life  |
-| `Packaged` | packaged   |
+| Name                     | Value                    |
+| ------------------------ | ------------------------ |
+| `IngredientTypeFresh`    | fresh                    |
+| `IngredientTypeLongLife` | long-life                |
+| `IngredientTypePackaged` | packaged                 |

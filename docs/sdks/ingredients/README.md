@@ -1,5 +1,5 @@
 # Ingredients
-(*ingredients*)
+(*.Ingredients*)
 
 ## Overview
 
@@ -7,44 +7,55 @@ The ingredients endpoints.
 
 ### Available Operations
 
-* [listIngredients](#listingredients) - Get a list of ingredients.
+* [ListIngredients](#listingredients) - Get a list of ingredients.
 
-## listIngredients
+## ListIngredients
 
 Get a list of ingredients, if authenticated this will include stock levels and product codes otherwise it will only include public information.
 
 ### Example Usage
 
-```typescript
-import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
+```go
+package main
 
-(async() => {
-  const sdk = new TheSpeakeasyBar({
-    apiKey: "",
-  });
+import(
+	"context"
+	"log"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+)
 
-  const res = await sdk.ingredients.listIngredients({
-    ingredients: [
-      "string",
-    ],
-  });
+func main() {
+    s := testryan3.New(
+        testryan3.WithSecurity(""),
+    )
 
+    ctx := context.Background()
+    res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
+        Ingredients: []string{
+            "string",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+    if res.Classes != nil {
+        // handle response
+    }
+}
 ```
 
 ### Parameters
 
 | Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
 | `request`                                                                              | [operations.ListIngredientsRequest](../../models/operations/listingredientsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
-| `config`                                                                               | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                           | :heavy_minus_sign:                                                                     | Available config options for making requests.                                          |
 
 
 ### Response
 
-**Promise<[operations.ListIngredientsResponse](../../models/operations/listingredientsresponse.md)>**
+**[*operations.ListIngredientsResponse](../../models/operations/listingredientsresponse.md), error**
 

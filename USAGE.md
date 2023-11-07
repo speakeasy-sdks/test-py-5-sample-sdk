@@ -1,21 +1,32 @@
 <!-- Start SDK Example Usage -->
 
 
-```typescript
-import { TheSpeakeasyBar } from "The-Speakeasy-Bar";
-import { DrinkType } from "The-Speakeasy-Bar/dist/sdk/models/shared";
+```go
+package main
 
-(async () => {
-    const sdk = new TheSpeakeasyBar({
-        apiKey: "",
-    });
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+)
 
-    const res = await sdk.drinks.listDrinks({});
+func main() {
+	s := testryan3.New(
+		testryan3.WithSecurity(""),
+	)
 
-    if (res.statusCode == 200) {
-        // handle response
-    }
-})();
+	ctx := context.Background()
+	res, err := s.Drinks.ListDrinks(ctx, operations.ListDrinksRequest{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.Classes != nil {
+		// handle response
+	}
+}
 
 ```
 <!-- End SDK Example Usage -->

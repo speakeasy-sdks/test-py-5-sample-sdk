@@ -3,8 +3,8 @@
 
 ## Fields
 
-| Field                 | Type                  | Required              | Description           |
-| --------------------- | --------------------- | --------------------- | --------------------- |
-| `code`                | *string*              | :heavy_minus_sign:    | N/A                   |
-| `details`             | Record<string, *any*> | :heavy_minus_sign:    | N/A                   |
-| `message`             | *string*              | :heavy_minus_sign:    | N/A                   |
+| Field                    | Type                     | Required                 | Description              |
+| ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| `Code`                   | **string*                | :heavy_minus_sign:       | N/A                      |
+| `Details`                | map[string]*interface{}* | :heavy_minus_sign:       | N/A                      |
+| `Message`                | **string*                | :heavy_minus_sign:       | N/A                      |
