@@ -1,5 +1,5 @@
 # Authentication
-(*.Authentication*)
+(*Authentication*)
 
 ## Overview
 
@@ -54,4 +54,7 @@ func main() {
 ### Response
 
 **[*operations.AuthenticateResponse](../../models/operations/authenticateresponse.md), error**
-
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.APIError | 5XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |

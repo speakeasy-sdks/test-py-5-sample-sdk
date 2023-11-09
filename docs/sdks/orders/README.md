@@ -1,5 +1,5 @@
 # Orders
-(*.Orders*)
+(*Orders*)
 
 ## Overview
 
@@ -63,4 +63,7 @@ func main() {
 ### Response
 
 **[*operations.CreateOrderResponse](../../models/operations/createorderresponse.md), error**
-
+| Error Object       | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| sdkerrors.APIError | 5XX                | application/json   |
+| sdkerrors.SDKError | 400-600            | */*                |
