@@ -23,7 +23,7 @@ internal/utils/requestbody.go
 internal/utils/retries.go
 internal/utils/security.go
 internal/utils/utils.go
-/models/operations/authenticate.go
+/models/operations/login.go
 /models/operations/getdrink.go
 /models/operations/listdrinks.go
 /models/operations/listingredients.go
@@ -44,9 +44,11 @@ internal/utils/utils.go
 /models/callbacks/createorder.go
 /models/webhooks/stockupdate.go
 USAGE.md
-docs/models/operations/authenticaterequestbody.md
-docs/models/operations/authenticateresponsebody.md
-docs/models/operations/authenticateresponse.md
+docs/models/operations/loginsecurity.md
+docs/models/operations/type.md
+docs/models/operations/loginrequestbody.md
+docs/models/operations/loginresponsebody.md
+docs/models/operations/loginresponse.md
 docs/models/operations/getdrinkrequest.md
 docs/models/operations/getdrinkresponse.md
 docs/models/operations/listdrinksrequest.md
@@ -77,8 +79,10 @@ docs/models/webhooks/stockupdateresponse.md
 docs/models/webhooks/stockupdaterequestbody.md
 docs/sdks/thespeakeasybar/README.md
 docs/sdks/authentication/README.md
+docs/models/operations/option.md
 docs/sdks/drinks/README.md
 docs/sdks/ingredients/README.md
 docs/sdks/orders/README.md
 docs/sdks/config/README.md
+models/operations/options.go
 .gitattributes

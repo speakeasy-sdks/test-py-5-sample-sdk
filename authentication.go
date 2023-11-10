@@ -26,8 +26,8 @@ func newAuthentication(sdkConfig sdkConfiguration) *Authentication {
 	}
 }
 
-// Authenticate with the API by providing a username and password.
-func (s *Authentication) Authenticate(ctx context.Context, request operations.AuthenticateRequestBody) (*operations.AuthenticateResponse, error) {
+// Login - Authenticate with the API by providing a username and password.
+func (s *Authentication) Login(ctx context.Context, request operations.LoginRequestBody, security operations.LoginSecurity) (*operations.LoginResponse, error) {
 	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
 	url := strings.TrimSuffix(baseURL, "/") + "/authenticate"
 
@@ -48,7 +48,7 @@ func (s *Authentication) Authenticate(ctx context.Context, request operations.Au
 
 	req.Header.Set("Content-Type", reqContentType)
 
-	client := s.sdkConfiguration.SecurityClient
+	client := utils.ConfigureSecurityClient(s.sdkConfiguration.DefaultClient, withSecurity(security))
 
 	httpRes, err := client.Do(req)
 	if err != nil {
@@ -60,7 +60,7 @@ func (s *Authentication) Authenticate(ctx context.Context, request operations.Au
 
 	contentType := httpRes.Header.Get("Content-Type")
 
-	res := &operations.AuthenticateResponse{
+	res := &operations.LoginResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
 		RawResponse: httpRes,
@@ -76,7 +76,7 @@ func (s *Authentication) Authenticate(ctx context.Context, request operations.Au
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(contentType, `application/json`):
-			var out operations.AuthenticateResponseBody
+			var out operations.LoginResponseBody
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

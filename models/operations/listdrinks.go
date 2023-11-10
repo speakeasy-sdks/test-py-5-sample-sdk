@@ -7,6 +7,11 @@ import (
 	"net/http"
 )
 
+var ListDrinksServerList = []string{
+	"https://speakeasy.bar",
+	"https://test.speakeasy.bar",
+}
+
 type ListDrinksRequest struct {
 	// The type of drink to filter by. If not provided all drinks will be returned.
 	DrinkType *components.DrinkType `queryParam:"style=form,explode=true,name=drinkType"`

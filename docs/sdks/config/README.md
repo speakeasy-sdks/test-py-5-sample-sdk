@@ -24,7 +24,9 @@ import(
 
 func main() {
     s := testryan3.New(
-        testryan3.WithSecurity(""),
+        testryan3.WithSecurity(components.Security{
+            APIKey: testryan3.String("<YOUR_API_KEY>"),
+        }),
     )
 
     ctx := context.Background()

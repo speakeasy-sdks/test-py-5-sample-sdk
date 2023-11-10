@@ -65,7 +65,49 @@ go get github.com/speakeasy-sdks/test-ryan-3
 
 ## SDK Example Usage
 <!-- Start SDK Example Usage -->
-### Example
+### Sign in
+
+First you need to send an authentication request to the API by providing your username and password.
+In the request body, you should specify the type of token you would like to receive: API key or JSON Web Token.
+If your credentials are valid, you will receive a token in the response object: `res.object.token: str`.
+
+```go
+package main
+
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+)
+
+func main() {
+	s := testryan3.New()
+
+	operationSecurity := operations.LoginSecurity{
+		Password: "<PASSWORD>",
+		Username: "<USERNAME>",
+	}
+
+	ctx := context.Background()
+	res, err := s.Authentication.Login(ctx, operations.LoginRequestBody{
+		Type: operations.TypeAPIKey,
+	}, operationSecurity)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.Object != nil {
+		// handle response
+	}
+}
+
+```
+
+### Browse available drinks
+
+Once you are authenticated, you can use the token you received for all other authenticated endpoints.
+For example, you can filter the list of available drinks by type.
 
 ```go
 package main
@@ -80,7 +122,9 @@ import (
 
 func main() {
 	s := testryan3.New(
-		testryan3.WithSecurity(""),
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
 	)
 
 	ctx := context.Background()
@@ -95,6 +139,50 @@ func main() {
 }
 
 ```
+
+### Create an order
+
+When you submit an order, you can include a callback URL along your request.
+This URL will get called whenever the supplier updates the status of your order.
+
+```go
+package main
+
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+)
+
+func main() {
+	s := testryan3.New(
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Orders.CreateOrder(ctx, operations.CreateOrderRequest{
+		RequestBody: []components.OrderInput{
+			components.OrderInput{
+				ProductCode: "APM-1F2D3",
+				Quantity:    26535,
+				Type:        components.OrderTypeDrink,
+			},
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.Order != nil {
+		// handle response
+	}
+}
+
+```
 <!-- End SDK Example Usage -->
 
 <!-- Start SDK Available Operations -->
@@ -103,7 +191,7 @@ func main() {
 
 ### [Authentication](docs/sdks/authentication/README.md)
 
-* [Authenticate](docs/sdks/authentication/README.md#authenticate) - Authenticate with the API by providing a username and password.
+* [Login](docs/sdks/authentication/README.md#login) - Authenticate with the API by providing a username and password.
 
 ### [Drinks](docs/sdks/drinks/README.md)
 
@@ -156,11 +244,15 @@ import (
 
 func main() {
 	s := testryan3.New(
-		testryan3.WithSecurity(""),
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
 	)
 
 	ctx := context.Background()
-	res, err := s.Authentication.Authenticate(ctx, operations.AuthenticateRequestBody{})
+	res, err := s.Config.SubscribeToWebhooks(ctx, []operations.RequestBody{
+		operations.RequestBody{},
+	})
 	if err != nil {
 
 		var e *sdkerrors.APIError
@@ -202,7 +294,6 @@ package main
 import (
 	"context"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
-	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
 )
@@ -210,11 +301,17 @@ import (
 func main() {
 	s := testryan3.New(
 		testryan3.WithServer("customer"),
-		testryan3.WithSecurity(""),
 	)
 
+	operationSecurity := operations.LoginSecurity{
+		Password: "<PASSWORD>",
+		Username: "<USERNAME>",
+	}
+
 	ctx := context.Background()
-	res, err := s.Authentication.Authenticate(ctx, operations.AuthenticateRequestBody{})
+	res, err := s.Authentication.Login(ctx, operations.LoginRequestBody{
+		Type: operations.TypeAPIKey,
+	}, operationSecurity)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -241,7 +338,6 @@ package main
 import (
 	"context"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
-	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
 )
@@ -249,16 +345,56 @@ import (
 func main() {
 	s := testryan3.New(
 		testryan3.WithServerURL("https://speakeasy.bar"),
-		testryan3.WithSecurity(""),
 	)
 
+	operationSecurity := operations.LoginSecurity{
+		Password: "<PASSWORD>",
+		Username: "<USERNAME>",
+	}
+
 	ctx := context.Background()
-	res, err := s.Authentication.Authenticate(ctx, operations.AuthenticateRequestBody{})
+	res, err := s.Authentication.Login(ctx, operations.LoginRequestBody{
+		Type: operations.TypeAPIKey,
+	}, operationSecurity)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	if res.Object != nil {
+		// handle response
+	}
+}
+
+```
+
+### Override Server URL Per-Operation
+
+The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
+```go
+package main
+
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+)
+
+func main() {
+	s := testryan3.New(
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Drinks.ListDrinks(ctx, operations.ListDrinksRequest{}, operations.WithServerURL("https://speakeasy.bar"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.Classes != nil {
 		// handle response
 	}
 }
@@ -304,13 +440,14 @@ This can be a convenient way to configure timeouts, cookies, proxies, custom hea
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security scheme globally:
+This SDK supports the following security schemes globally:
 
-| Name     | Type     | Scheme   |
-| -------- | -------- | -------- |
-| `APIKey` | apiKey   | API key  |
+| Name         | Type         | Scheme       |
+| ------------ | ------------ | ------------ |
+| `APIKey`     | apiKey       | API key      |
+| `BearerAuth` | http         | HTTP Bearer  |
 
-You can configure it using the `WithSecurity` option when initializing the SDK client instance. For example:
+You can set the security parameters through the `WithSecurity` option when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```go
 package main
 
@@ -324,16 +461,60 @@ import (
 
 func main() {
 	s := testryan3.New(
-		testryan3.WithSecurity(""),
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
 	)
 
 	ctx := context.Background()
-	res, err := s.Authentication.Authenticate(ctx, operations.AuthenticateRequestBody{})
+	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
+		Ingredients: []string{
+			"string",
+		},
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if res.Object != nil {
+	if res.Classes != nil {
+		// handle response
+	}
+}
+
+```
+
+### Per-Operation Security Schemes
+
+Some operations in this SDK require the security scheme to be specified at the request level. For example:
+```go
+package main
+
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+)
+
+func main() {
+	s := testryan3.New(
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
+		Ingredients: []string{
+			"string",
+		},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.Classes != nil {
 		// handle response
 	}
 }
@@ -346,6 +527,94 @@ func main() {
 <!-- Start Go Types -->
 
 <!-- End Go Types -->
+
+
+
+<!-- Start Retries -->
+## Retries
+
+Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
+```go
+package main
+
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+)
+
+func main() {
+	s := testryan3.New(
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Config.SubscribeToWebhooks(ctx, []operations.RequestBody{
+		operations.RequestBody{},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.StatusCode == http.StatusOK {
+		// handle response
+	}
+}
+
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
+```go
+package main
+
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+)
+
+func main() {
+	s := testryan3.New(
+		testryan3.WithRetryConfig(utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 1,
+				MaxInterval:     50,
+				Exponent:        1.1,
+				MaxElapsedTime:  100,
+			},
+			RetryConnectionErrors: false,
+		}),
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Config.SubscribeToWebhooks(ctx, []operations.RequestBody{
+		operations.RequestBody{},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.StatusCode == http.StatusOK {
+		// handle response
+	}
+}
+
+```
+
+
+<!-- End Retries -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

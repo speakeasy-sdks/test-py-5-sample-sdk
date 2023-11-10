@@ -111,8 +111,22 @@ func (s *Drinks) GetDrink(ctx context.Context, request operations.GetDrinkReques
 
 // ListDrinks - Get a list of drinks.
 // Get a list of drinks, if authenticated this will include stock levels and product codes otherwise it will only include public information.
-func (s *Drinks) ListDrinks(ctx context.Context, request operations.ListDrinksRequest) (*operations.ListDrinksResponse, error) {
-	baseURL := utils.ReplaceParameters(s.sdkConfiguration.GetServerDetails())
+func (s *Drinks) ListDrinks(ctx context.Context, request operations.ListDrinksRequest, opts ...operations.Option) (*operations.ListDrinksResponse, error) {
+	o := operations.Options{}
+	supportedOptions := []string{
+		operations.SupportedOptionServerURL,
+	}
+
+	for _, opt := range opts {
+		if err := opt(&o, supportedOptions...); err != nil {
+			return nil, fmt.Errorf("error applying option: %w", err)
+		}
+	}
+	baseURL := utils.ReplaceParameters(operations.ListDrinksServerList[0], map[string]string{})
+	if o.ServerURL != nil {
+		baseURL = *o.ServerURL
+	}
+
 	url := strings.TrimSuffix(baseURL, "/") + "/drinks"
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)

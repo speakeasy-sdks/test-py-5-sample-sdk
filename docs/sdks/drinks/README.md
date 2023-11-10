@@ -29,7 +29,9 @@ import(
 
 func main() {
     s := testryan3.New(
-        testryan3.WithSecurity(""),
+        testryan3.WithSecurity(components.Security{
+            APIKey: testryan3.String("<YOUR_API_KEY>"),
+        }),
     )
 
     ctx := context.Background()
@@ -81,7 +83,9 @@ import(
 
 func main() {
     s := testryan3.New(
-        testryan3.WithSecurity(""),
+        testryan3.WithSecurity(components.Security{
+            APIKey: testryan3.String("<YOUR_API_KEY>"),
+        }),
     )
 
     ctx := context.Background()
@@ -102,6 +106,7 @@ func main() {
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
 | `request`                                                                    | [operations.ListDrinksRequest](../../models/operations/listdrinksrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| `opts`                                                                       | [][operations.Option](../../models/operations/option.md)                     | :heavy_minus_sign:                                                           | The options for this request.                                                |
 
 
 ### Response
