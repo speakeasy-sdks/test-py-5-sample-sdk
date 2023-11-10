@@ -24,7 +24,6 @@ import(
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
-	"github.com/speakeasy-sdks/test-ryan-3/models/callbacks"
 )
 
 func main() {
