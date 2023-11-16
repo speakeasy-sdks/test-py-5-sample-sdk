@@ -19,11 +19,11 @@ Create an order for a drink.
 package main
 
 import(
-	"context"
-	"log"
-	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"context"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
 )
 
 func main() {

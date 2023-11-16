@@ -20,11 +20,11 @@ Get a drink by name, if authenticated this will include stock levels and product
 package main
 
 import(
-	"context"
-	"log"
-	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"context"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
 )
 
 func main() {
@@ -74,11 +74,11 @@ Get a list of drinks, if authenticated this will include stock levels and produc
 package main
 
 import(
-	"context"
-	"log"
-	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"context"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
 )
 
 func main() {

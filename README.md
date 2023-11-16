@@ -236,9 +236,11 @@ package main
 
 import (
 	"context"
+	"errors"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"github.com/speakeasy-sdks/test-ryan-3/models/sdkerrors"
 	"log"
 )
 
@@ -545,6 +547,7 @@ import (
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
+	"net/http"
 )
 
 func main() {
@@ -576,23 +579,26 @@ package main
 import (
 	"context"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/internal/utils"
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
+	"net/http"
 )
 
 func main() {
 	s := testryan3.New(
-		testryan3.WithRetryConfig(utils.RetryConfig{
-			Strategy: "backoff",
-			Backoff: &utils.BackoffStrategy{
-				InitialInterval: 1,
-				MaxInterval:     50,
-				Exponent:        1.1,
-				MaxElapsedTime:  100,
-			},
-			RetryConnectionErrors: false,
-		}),
+		testryan3.WithRetryConfig(
+			utils.RetryConfig{
+				Strategy: "backoff",
+				Backoff: &utils.BackoffStrategy{
+					InitialInterval: 1,
+					MaxInterval:     50,
+					Exponent:        1.1,
+					MaxElapsedTime:  100,
+				},
+				RetryConnectionErrors: false,
+			}),
 		testryan3.WithSecurity(components.Security{
 			APIKey: testryan3.String("<YOUR_API_KEY>"),
 		}),
@@ -612,8 +618,6 @@ func main() {
 }
 
 ```
-
-
 <!-- End Retries -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->

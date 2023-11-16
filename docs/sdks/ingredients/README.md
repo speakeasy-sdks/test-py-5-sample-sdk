@@ -19,11 +19,11 @@ Get a list of ingredients, if authenticated this will include stock levels and p
 package main
 
 import(
-	"context"
-	"log"
-	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"context"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
 )
 
 func main() {

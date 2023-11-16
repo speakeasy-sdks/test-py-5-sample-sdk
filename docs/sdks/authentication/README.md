@@ -19,10 +19,10 @@ Authenticate with the API by providing a username and password.
 package main
 
 import(
-	"context"
-	"log"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"context"
+	"log"
 )
 
 func main() {
