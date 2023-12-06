@@ -1,4 +1,4 @@
-<!-- Start SDK Example Usage -->
+<!-- Start SDK Example Usage [usage] -->
 ### Sign in
 
 First you need to send an authentication request to the API by providing your username and password.
@@ -117,4 +117,40 @@ func main() {
 }
 
 ```
-<!-- End SDK Example Usage -->
+
+### Subscribe to webhooks to receive stock updates
+
+```go
+package main
+
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+	"net/http"
+)
+
+func main() {
+	s := testryan3.New(
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Config.SubscribeToWebhooks(ctx, []operations.RequestBody{
+		operations.RequestBody{},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.StatusCode == http.StatusOK {
+		// handle response
+	}
+}
+
+```
+<!-- End SDK Example Usage [usage] -->

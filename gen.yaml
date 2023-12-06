@@ -1,9 +1,9 @@
 configVersion: 1.0.0
 management:
-  docChecksum: 5ee4c5dca40da9f180bbde30d9b1d4ba
+  docChecksum: f22d50ed7aa4956c14ae35514eb114c1
   docVersion: 1.0.0
-  speakeasyVersion: 1.121.3
-  generationVersion: 2.195.2
+  speakeasyVersion: 1.125.2
+  generationVersion: 2.210.6
 generation:
   comments: {}
   sdkClassName: The-Speakeasy-Bar
@@ -20,6 +20,7 @@ features:
     inputOutputModels: 2.82.0
     methodSecurity: 2.82.1
     methodServerURLs: 2.82.1
+    retries: 2.82.1
     serverIDs: 2.81.1
   python:
     core: 2.85.3
@@ -39,7 +40,7 @@ features:
     inputOutputModels: 2.81.1
     serverIDs: 2.81.2
 go:
-  version: 0.2.4
+  version: 0.2.5
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
   imports:

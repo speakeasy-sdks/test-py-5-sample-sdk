@@ -55,16 +55,17 @@ servers:
 
 Once you're finished iterating and happy with the output push only the latest version of spec into the repo and regenerate the SDK using step 6 above.
 
-<!-- Start SDK Installation -->
+<!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
 ```bash
 go get github.com/speakeasy-sdks/test-ryan-3
 ```
-<!-- End SDK Installation -->
+<!-- End SDK Installation [installation] -->
 
+<!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
-<!-- Start SDK Example Usage -->
+
 ### Sign in
 
 First you need to send an authentication request to the API by providing your username and password.
@@ -183,11 +184,46 @@ func main() {
 }
 
 ```
-<!-- End SDK Example Usage -->
 
-<!-- Start SDK Available Operations -->
+### Subscribe to webhooks to receive stock updates
+
+```go
+package main
+
+import (
+	"context"
+	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
+	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
+	"log"
+	"net/http"
+)
+
+func main() {
+	s := testryan3.New(
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
+	)
+
+	ctx := context.Background()
+	res, err := s.Config.SubscribeToWebhooks(ctx, []operations.RequestBody{
+		operations.RequestBody{},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if res.StatusCode == http.StatusOK {
+		// handle response
+	}
+}
+
+```
+<!-- End SDK Example Usage [usage] -->
+
+<!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
-
 
 ### [Authentication](docs/sdks/authentication/README.md)
 
@@ -209,25 +245,22 @@ func main() {
 ### [Config](docs/sdks/config/README.md)
 
 * [SubscribeToWebhooks](docs/sdks/config/README.md#subscribetowebhooks) - Subscribe to webhooks.
-<!-- End SDK Available Operations -->
+<!-- End Available Resources and Operations [operations] -->
 
 
 
-<!-- Start Dev Containers -->
-
-<!-- End Dev Containers -->
 
 
-
-<!-- Start Error Handling -->
+<!-- Start Error Handling [errors] -->
 ## Error Handling
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or an error, they will never return both.  When specified by the OpenAPI spec document, the SDK will return the appropriate subclass.
 
-| Error Object       | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| sdkerrors.APIError | 5XX                | application/json   |
-| sdkerrors.SDKError | 400-600            | */*                |
+| Error Object         | Status Code          | Content Type         |
+| -------------------- | -------------------- | -------------------- |
+| sdkerrors.BadRequest | 400                  | application/json     |
+| sdkerrors.APIError   | 5XX                  | application/json     |
+| sdkerrors.SDKError   | 400-600              | */*                  |
 
 ### Example
 
@@ -257,6 +290,12 @@ func main() {
 	})
 	if err != nil {
 
+		var e *sdkerrors.BadRequest
+		if errors.As(err, &e) {
+			// handle error
+			log.Fatal(e.Error())
+		}
+
 		var e *sdkerrors.APIError
 		if errors.As(err, &e) {
 			// handle error
@@ -272,11 +311,11 @@ func main() {
 }
 
 ```
-<!-- End Error Handling -->
+<!-- End Error Handling [errors] -->
 
 
 
-<!-- Start Server Selection -->
+<!-- Start Server Selection [server] -->
 ## Server Selection
 
 ### Select Server by Name
@@ -288,6 +327,7 @@ You can override the default server globally using the `WithServer` option when 
 | `prod` | `https://speakeasy.bar` | None |
 | `staging` | `https://staging.speakeasy.bar` | None |
 | `customer` | `https://{organization}.{environment}.speakeasy.bar` | `environment` (default is `prod`), `organization` (default is `api`) |
+
 #### Example
 
 ```go
@@ -296,6 +336,7 @@ package main
 import (
 	"context"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
 )
@@ -303,22 +344,22 @@ import (
 func main() {
 	s := testryan3.New(
 		testryan3.WithServer("customer"),
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
 	)
 
-	operationSecurity := operations.LoginSecurity{
-		Password: "<PASSWORD>",
-		Username: "<USERNAME>",
-	}
-
 	ctx := context.Background()
-	res, err := s.Authentication.Login(ctx, operations.LoginRequestBody{
-		Type: operations.TypeAPIKey,
-	}, operationSecurity)
+	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
+		Ingredients: []string{
+			"string",
+		},
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if res.Object != nil {
+	if res.Classes != nil {
 		// handle response
 	}
 }
@@ -340,6 +381,7 @@ package main
 import (
 	"context"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
 )
@@ -347,22 +389,22 @@ import (
 func main() {
 	s := testryan3.New(
 		testryan3.WithServerURL("https://speakeasy.bar"),
+		testryan3.WithSecurity(components.Security{
+			APIKey: testryan3.String("<YOUR_API_KEY>"),
+		}),
 	)
 
-	operationSecurity := operations.LoginSecurity{
-		Password: "<PASSWORD>",
-		Username: "<USERNAME>",
-	}
-
 	ctx := context.Background()
-	res, err := s.Authentication.Login(ctx, operations.LoginRequestBody{
-		Type: operations.TypeAPIKey,
-	}, operationSecurity)
+	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
+		Ingredients: []string{
+			"string",
+		},
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if res.Object != nil {
+	if res.Classes != nil {
 		// handle response
 	}
 }
@@ -402,11 +444,11 @@ func main() {
 }
 
 ```
-<!-- End Server Selection -->
+<!-- End Server Selection [server] -->
 
 
 
-<!-- Start Custom HTTP Client -->
+<!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
 
 The Go SDK makes API calls that wrap an internal HTTP client. The requirements for the HTTP client are very simple. It must match this interface:
@@ -433,11 +475,11 @@ var (
 ```
 
 This can be a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration.
-<!-- End Custom HTTP Client -->
+<!-- End Custom HTTP Client [http-client] -->
 
 
 
-<!-- Start Authentication -->
+<!-- Start Authentication [security] -->
 ## Authentication
 
 ### Per-Client Security Schemes
@@ -494,45 +536,45 @@ package main
 import (
 	"context"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
-	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
 )
 
 func main() {
-	s := testryan3.New(
-		testryan3.WithSecurity(components.Security{
-			APIKey: testryan3.String("<YOUR_API_KEY>"),
-		}),
-	)
+	s := testryan3.New()
+
+	operationSecurity := operations.LoginSecurity{
+		Password: "<PASSWORD>",
+		Username: "<USERNAME>",
+	}
 
 	ctx := context.Background()
-	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
-		Ingredients: []string{
-			"string",
-		},
-	})
+	res, err := s.Authentication.Login(ctx, operations.LoginRequestBody{
+		Type: operations.TypeAPIKey,
+	}, operationSecurity)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if res.Classes != nil {
+	if res.Object != nil {
 		// handle response
 	}
 }
 
 ```
-<!-- End Authentication -->
+<!-- End Authentication [security] -->
 
 
 
-<!-- Start Go Types -->
-
-<!-- End Go Types -->
-
+<!-- Start Special Types [types] -->
+## Special Types
 
 
-<!-- Start Retries -->
+<!-- End Special Types [types] -->
+
+
+
+<!-- Start Retries [retries] -->
 ## Retries
 
 Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
@@ -544,9 +586,11 @@ package main
 import (
 	"context"
 	testryan3 "github.com/speakeasy-sdks/test-ryan-3"
+	"github.com/speakeasy-sdks/test-ryan-3/internal/utils"
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
+	"models/operations"
 	"net/http"
 )
 
@@ -560,7 +604,17 @@ func main() {
 	ctx := context.Background()
 	res, err := s.Config.SubscribeToWebhooks(ctx, []operations.RequestBody{
 		operations.RequestBody{},
-	})
+	}, operations.WithRetries(
+		utils.RetryConfig{
+			Strategy: "backoff",
+			Backoff: &utils.BackoffStrategy{
+				InitialInterval: 1,
+				MaxInterval:     50,
+				Exponent:        1.1,
+				MaxElapsedTime:  100,
+			},
+			RetryConnectionErrors: false,
+		}))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -618,7 +672,7 @@ func main() {
 }
 
 ```
-<!-- End Retries -->
+<!-- End Retries [retries] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

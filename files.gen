@@ -41,9 +41,9 @@ internal/utils/utils.go
 /models/components/ingredientinput.go
 /models/components/drinkinput.go
 /models/sdkerrors/apierror.go
+/models/sdkerrors/badrequest.go
 /models/callbacks/createorder.go
 /models/webhooks/stockupdate.go
-USAGE.md
 docs/models/operations/loginsecurity.md
 docs/models/operations/type.md
 docs/models/operations/loginrequestbody.md
@@ -73,6 +73,7 @@ docs/models/components/security.md
 docs/models/components/ingredientinput.md
 docs/models/components/drinkinput.md
 docs/models/sdkerrors/apierror.md
+docs/models/sdkerrors/badrequest.md
 docs/models/callbacks/createorderorderupdateresponse.md
 docs/models/callbacks/createorderorderupdaterequestbody.md
 docs/models/webhooks/stockupdateresponse.md
@@ -84,5 +85,6 @@ docs/sdks/drinks/README.md
 docs/sdks/ingredients/README.md
 docs/sdks/orders/README.md
 docs/sdks/config/README.md
+USAGE.md
 models/operations/options.go
 .gitattributes
