@@ -4,9 +4,9 @@ management:
   docChecksum: f22d50ed7aa4956c14ae35514eb114c1
   docVersion: 1.0.0
   speakeasyVersion: internal
-  generationVersion: 2.234.3
-  releaseVersion: 0.3.1
-  configChecksum: 8ea3871143ce884b83ec5f948a6de348
+  generationVersion: 2.237.2
+  releaseVersion: 0.3.2
+  configChecksum: b0ca8458e1e744841c1a86573bb33c8d
   repoURL: https://github.com/speakeasy-sdks/test-ryan-3.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/test-ryan-3
@@ -16,10 +16,10 @@ features:
     core: 3.3.1
     errors: 2.81.8
     examples: 2.81.3
-    globalSecurity: 2.82.3
+    globalSecurity: 2.82.4
     globalServerURLs: 2.82.1
     inputOutputModels: 2.83.0
-    methodSecurity: 2.82.1
+    methodSecurity: 2.82.2
     methodServerURLs: 2.82.1
     retries: 2.82.1
     serverIDs: 2.81.1
@@ -49,7 +49,6 @@ generatedFiles:
   - thespeakeasybar.go
   - go.mod
   - go.sum
-  - tests/helpers.go
   - models/sdkerrors/sdkerror.go
   - types/bigint.go
   - types/date.go
