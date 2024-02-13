@@ -350,11 +350,7 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
-		Ingredients: []string{
-			"string",
-		},
-	})
+	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -395,11 +391,7 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
-		Ingredients: []string{
-			"string",
-		},
-	})
+	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -511,11 +503,7 @@ func main() {
 	)
 
 	ctx := context.Background()
-	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{
-		Ingredients: []string{
-			"string",
-		},
-	})
+	res, err := s.Ingredients.ListIngredients(ctx, operations.ListIngredientsRequest{})
 	if err != nil {
 		log.Fatal(err)
 	}
