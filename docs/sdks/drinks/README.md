@@ -36,7 +36,7 @@ func main() {
 
     ctx := context.Background()
     res, err := s.Drinks.GetDrink(ctx, operations.GetDrinkRequest{
-        Name: "string",
+        Name: "<value>",
     })
     if err != nil {
         log.Fatal(err)
