@@ -228,9 +228,9 @@ func New(opts ...SDKOption) *TheSpeakeasyBar {
 		sdkConfiguration: sdkConfiguration{
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.5.0",
-			GenVersion:        "2.258.2",
-			UserAgent:         "speakeasy-sdk/go 0.5.0 2.258.2 1.0.0 github.com/speakeasy-sdks/test-ryan-3",
+			SDKVersion:        "0.5.1",
+			GenVersion:        "2.263.3",
+			UserAgent:         "speakeasy-sdk/go 0.5.1 2.263.3 1.0.0 github.com/speakeasy-sdks/test-ryan-3",
 			ServerDefaults: map[string]map[string]string{
 				"prod":    {},
 				"staging": {},
