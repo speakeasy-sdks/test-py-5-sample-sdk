@@ -4,15 +4,16 @@ management:
   docChecksum: f22d50ed7aa4956c14ae35514eb114c1
   docVersion: 1.0.0
   speakeasyVersion: internal
-  generationVersion: 2.272.7
-  releaseVersion: 0.5.3
-  configChecksum: 545f1f2f7a3d9db75b99d59bac6af6c1
+  generationVersion: 2.275.4
+  releaseVersion: 0.6.0
+  configChecksum: 2bab6820d4c2490f2d66822d4bb93ae4
   repoURL: https://github.com/speakeasy-sdks/test-ryan-3.git
   repoSubDirectory: .
   installationURL: https://github.com/speakeasy-sdks/test-ryan-3
   published: true
 features:
   go:
+    callbacks: 1.0.0
     core: 3.4.3
     errors: 2.81.8
     examples: 2.81.3
@@ -23,6 +24,7 @@ features:
     methodServerURLs: 2.82.1
     retries: 2.82.2
     serverIDs: 2.81.1
+    webhooks: 1.0.0
   python:
     core: 2.85.3
     errors: 2.81.3
