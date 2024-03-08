@@ -30,7 +30,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	if res.Object != nil {
 		// handle response
 	}
@@ -66,7 +65,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	if res.Classes != nil {
 		// handle response
 	}
@@ -110,7 +108,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	if res.Order != nil {
 		// handle response
 	}
@@ -129,7 +126,6 @@ import (
 	"github.com/speakeasy-sdks/test-ryan-3/models/components"
 	"github.com/speakeasy-sdks/test-ryan-3/models/operations"
 	"log"
-	"net/http"
 )
 
 func main() {
@@ -146,8 +142,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	if res.StatusCode == http.StatusOK {
+	if res != nil {
 		// handle response
 	}
 }
