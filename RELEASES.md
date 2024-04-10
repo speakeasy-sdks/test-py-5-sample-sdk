@@ -513,3 +513,13 @@ Based on:
 - [go v0.7.3] .
 ### Releases
 - [Go v0.7.3] https://github.com/speakeasy-sdks/test-ryan-3/releases/tag/v0.7.3 - .
+
+## 2024-04-10 19:04:15
+### Changes
+Based on:
+- OpenAPI Doc 1.0.0 
+- Speakeasy CLI 1.246.1 (2.302.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.7.4] .
+### Releases
+- [Go v0.7.4] https://github.com/speakeasy-sdks/test-ryan-3/releases/tag/v0.7.4 - .
